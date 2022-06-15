@@ -7,18 +7,15 @@ for i in range(5):
     # create the solution to find
     to_find.append(list[random.randint(0,len(list)-1)])
     
-def same_tab(tab1, tab2):
-    # compare user input with response array
-    for i in tab1:
-        if tab1[i]!=tab2[i]:
-            return False
-    return True
-
 def str_to_arr(string):
     # transform a string into an array
     temp=[]
+    x=len(string)-1
     for i in range(5):
-        temp.append(string[i])
+        if i<=x:
+            temp.append(string[i])
+        else:
+            temp.append('-')
     return temp
         
 def tab_num(tab, num):
@@ -28,13 +25,14 @@ def tab_num(tab, num):
         if i==num:
             temp+=1
     return temp
-
-while(same_tab):
-    os.system('CLS')
-    cpt=0
-    print(to_find)
+cpt=0
+tab_check=[]
+tab_input=[]
+while(tab_num(tab_check,1)<5):
     print('R:red, Y:yellow, B:blue, O:orange, G:green, W:white, V:violet, P:pink')
-    response=input('Entrez un suite de 5 couleurs:')
+    response= (input('Entrez un suite de 5 couleurs:')).upper()
+    tab_input.append(' | '+' | '.join(str(response[:5])))
+    os.system('CLS')
     tab=str_to_arr(response)
     tab_check=[0 for x in range(5)]
     same_color=0
@@ -53,10 +51,15 @@ while(same_tab):
                             tab_check[j]=2
                             same_color+=1
                             break
-    
+    tab_input[cpt]+=(' | => bonne couleur: '+str(tab_num(tab_check,2))+' - bonne place: '+str(tab_num(tab_check,1)))
     cpt+=1
-    print('Bonne couleur:',tab_num(tab_check,2))
-    print('Bonne place',tab_num(tab_check,1))
+    
+    print('Donnée(s) précédente(s):')
+    print('-----------------------')
+    for i in tab_input:
+        print(i)
+    print('-----------------------')
     print("Nombre d'essai:", cpt)
+print('BRAVO')
     
     
